@@ -1,0 +1,98 @@
+@model PaginatedList<BTL_ASP_MVC.Models.Sinhvien>
+
+@{
+    ViewData["Title"] = "List Students";
+}
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+<form asp-action="Index" method="get" class="col-3 mb-2">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Searh by name.." name="search"
+            value="@ViewBag.currentSearch">
+        <button class="btn btn-outline-secondary" type="submit">
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+    </div>
+    <a asp-action="Index">Clear search</a>
+</form>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>
+                Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Birthday
+            </th>
+            <th>
+                Class
+            </th>
+            <th>
+                Updated at
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.sinhvien_id)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.birthday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lop.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.updated_at)
+                </td>
+                <td>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.sinhvien_id">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.sinhvien_id">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-currentSearch="@ViewBag.currentSearch"
+    class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index" asp-route-sortOrder="@ViewBag.CurrentSort" asp-route-pageNumber="@(Model.PageIndex + 1)"
+    asp-route-currentSearch="@ViewBag.currentSearch" class="btn btn-default @nextDisabled">
+    Next
+</a>

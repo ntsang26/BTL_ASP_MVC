@@ -1,0 +1,22 @@
+<h1>Import data from excel file</h1>
+<hr>
+<div class="row">
+  <div class="col-md-4">
+    <form asp-action="Upload" enctype="multipart/form-data">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      <div>
+        <label for="">Upload excel file</label>
+        <input type="file" name="file" id="" class="form-control">
+        <br>
+      </div>
+      <div>
+        <input type="submit" value="Upload" class="btn btn-primary">
+        <a asp-action="Index" class="btn btn-success">Back to list</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
